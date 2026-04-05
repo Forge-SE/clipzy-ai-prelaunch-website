@@ -1,0 +1,203 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap'); */
+@import "tailwindcss";
+
+/* ─── Font Faces ─── */
+@font-face {
+    font-family: Satoshi;
+    src: url('/fonts/Satoshi-Variable.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Gambarino;
+    src: url('/fonts/Gambarino-Regular.otf') format('opentype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: NeueAlte;
+    src: url('/fonts/NeueAlteGrotesk-Regular.ttf') format('truetype');
+    font-display: swap;
+}
+
+/* ─── CSS Variables ─── */
+:root {
+    --font-display: 'NeueAlte', system-ui, sans-serif;
+    --font-body: 'NeueAlte', system-ui, sans-serif;
+    --color-white: #FFFFFF;
+    --color-black: #0A0A0A;
+    --color-lime: #ff8800;
+    --color-antique: #FAEBD7;
+    --color-dark-text: #1A1A1A;
+    --color-muted: rgba(255, 255, 255, 0.5);
+    --color-muted-dark: rgba(0, 0, 0, 0.45);
+    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Reset & Base ─── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: auto;
+    /* GSAP handles scrolling */
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.5);
+}
+
+/* ─── Section Layout ─── */
+.vibecut-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.section-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    width: 100%;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+/* ─── Typography ─── */
+.headline-line {
+    font-family: 'NeueAlte', system-ui, sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.15em;
+    will-change: transform, opacity;
+}
+
+.headline-line--small {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+/* Screen-specific styles */
+.screen-white {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.screen-black {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.screen-antique {
+    background-color: var(--color-antique);
+    color: var(--color-dark-text);
+}
+
+/* ─── Grid Background Canvas ─── */
+.hero-grid-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 1;
+    pointer-events: none;
+}
+
+/* ─── Loading Screen ─── */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s var(--ease-smooth);
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-black);
+    margin: 0 6px;
+    animation: loadPulse 1.2s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.loading-dot:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes loadPulse {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0.4);
+        opacity: 0.3;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .section-inner {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .headline-line {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+}
