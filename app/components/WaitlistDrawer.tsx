@@ -24,11 +24,29 @@ export default function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps)
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Mocking an API call
-    setTimeout(() => {
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSuccess(true);
+      } else {
+        alert(data.error || "Failed to join waitlist");
+      }
+    } catch (error) {
+      console.error("Error joining waitlist:", error);
+      alert("An error occurred. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 1500);
+    }
   };
 
   const handleClose = () => {
